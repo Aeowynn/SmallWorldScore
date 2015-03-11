@@ -3,6 +3,7 @@
 # Began Spring 2014, continued implementing Spring 2015
 
 NumberPlayers = 0
+PlayerList = []
 
 # Player class for keeping track of a player's score
 class Player:
@@ -44,17 +45,24 @@ def Welcome():
 # Make classes for each player
 def Setup_Players(num):
 	temp = 1
-	while num > 1:
-		print "Hello!"
+	PList = []
+	while num >= 1:
+		print "Now requesting information for player", temp, "\n"
+		player_response = raw_input("Name for player? ")
+		print "Recieved", player_response, ". Now making class."
+		PList.append(Player(player_response))
 		temp = temp + 1
-		print "Now making player", temp
 		num = num - 1
 		print "Num:", num
-	print "Game is set up for", temp, "players!"
+	print "Game is set up for", temp-1, "players!"
+	return PList
 
 # Calling Functions
 # Set value for number of players
 NumberPlayers = Welcome()
-Setup_Players(NumberPlayers)
+PlayerList = Setup_Players(NumberPlayers)
 
 print "Outside Num:", NumberPlayers
+print "List:", PlayerList
+print PlayerList[0]
+print PlayerList[1]
