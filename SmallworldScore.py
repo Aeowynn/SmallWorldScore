@@ -13,7 +13,7 @@ class Player:
 	def __init__(self, name):
 		self.PlayerName = name
 
-	def Update_Score(self, gain):
+	def UpdateScore(self, gain):
 		print "Updating score for", self.PlayerName, " "
 		self.score = self.score + int(gain)
 
@@ -49,20 +49,71 @@ def Setup_Players(num):
 	while num >= 1:
 		print "Now requesting information for player", temp, "\n"
 		player_response = raw_input("Name for player? ")
-		print "Recieved", player_response, ". Now making class."
-		PList.append(Player(player_response))
+		print "Recieved", player_response, "\n"
+		#player = Player(player_response)
+		PList.append(player_response)
 		temp = temp + 1
 		num = num - 1
-		print "Num:", num
 	print "Game is set up for", temp-1, "players!"
 	return PList
+
+def MainScreen(PlayerList, i):
+	print PlayerList[i], "it is your turn."
+	print "If", PlayerList[i], "spent gold this turn, please press 1."
+	print "If", PlayerList[i], "is ready to score their turn, please press 2."
+	response = int(raw_input("Your answer: "))
+	if response == 1:
+		SpentScreen(PlayerList, i)
+	elif response == 2:
+		UpdateScreen(PlayerList, i)
+	else:
+		print "Error; invalid answer."
+		return
+		
+def SpentScreen(PlayerList, i):
+	print PlayerList[i], "spent how much this turn? If you accidentally went to this prompt, press x to go back."
+	dec = raw_input("Your answer: ")
+	if dec == 'x':
+		print "Recieved 'x'. Sending you back to previous screen."
+		MainScreen(PlayerList, i)
+	elif int(dec) > 0:
+		dec = 0 - int(dec)
+		PlayerList[i].UpdateScore(dec)
+		return
+	else:
+		print "Error, incorrect decrement value."
+		return
+
+def UpdateScreen(PlayerList, i):
+	print PlayerList[i], "scored how many points this turn? If you accidentally went to this prompt, press x to go back."
+	inc = raw_input("Your answer: ")
+	if inc == 'x':
+		print "Recieved 'x'. Sending you back to the previous screen."
+	
+	return
 
 # Calling Functions
 # Set value for number of players
 NumberPlayers = Welcome()
 PlayerList = Setup_Players(NumberPlayers)
 
-print "Outside Num:", NumberPlayers
-print "List:", PlayerList
-print PlayerList[0]
-print PlayerList[1]
+print "Now making objects."
+j = 0
+while j < len(PlayerList):
+	print PlayerList[j]
+	#need way of referencing it
+	Player(PlayerList[j])
+	j = j + 1
+
+#This can be hardcoded in; may be different for base vs underground?
+print "Alright! Now we just need to know how many rounds will be played."
+round_response = int(raw_input("Number of rounds? "))
+print "Cool!", round_response, "rounds will be played."
+
+#provide space for players to enter in score information
+#per player per round
+while round_response != 0:
+	#Call update score
+	i = 0
+	MainScreen(PlayerList, i)
+
