@@ -28,7 +28,7 @@ def Welcome():
 	
 	print "\n * * * * * * * * * *\n"
 
-	#Displau this message
+	#Display this message
 	#Checking for unique player names not implemented yet
 	print "For now, please use unique player names.\n"
 
@@ -38,23 +38,29 @@ def Welcome():
 	if int(amount_response) < 6 and 1 < int(amount_response):
 		num = int(amount_response)
 		print "\nNumber of players: ", num, "\n"
+		return num
 	else:
-		print "Error! Not a legal amount of players!"
-	return num
+		print "\nError! Not a legal amount of players! Please enter a value 2-5."
+		Welcome()
 
 # Make classes for each player
 def Setup_Players(num):
+	print "\n * * * * * * * * * *\n"
+	print "Now we'll set up the player list!"
+	print "\n * * * * * * * * * *\n"
 	temp = 1
 	PList = []
 	while num >= 1:
-		print "Now requesting information for player", temp, "\n"
+		print "Now requesting information for player", temp
 		player_response = raw_input("Name for player? ")
 		print "Recieved", player_response, "\n"
 		#player = Player(player_response)
 		PList.append(player_response)
 		temp = temp + 1
 		num = num - 1
-	print "Game is set up for", temp-1, "players!"
+	print "\n * * * * * * * * * *\n"
+	print "Alright, game is set up for", temp-1, "players!"
+	print "\n * * * * * * * * * *\n"
 	return PList
 
 def MainScreen(PlayerList, i):
@@ -71,10 +77,10 @@ def MainScreen(PlayerList, i):
 		return
 		
 def SpentScreen(PlayerList, i):
-	print PlayerList[i], "spent how much this turn? If you accidentally went to this prompt, press x to go back."
+	print "\n", PlayerList[i], "spent how much this turn? If you accidentally went to this prompt, press x to go back."
 	dec = raw_input("Your answer: ")
 	if dec == 'x':
-		print "Recieved 'x'. Sending you back to previous screen."
+		print "Recieved 'x'. Sending you back to previous screen.\n"
 		MainScreen(PlayerList, i)
 	elif int(dec) > 0:
 		dec = 0 - int(dec)
@@ -85,11 +91,16 @@ def SpentScreen(PlayerList, i):
 		return
 
 def UpdateScreen(PlayerList, i):
-	print PlayerList[i], "scored how many points this turn? If you accidentally went to this prompt, press x to go back."
+	print "\n", PlayerList[i], "scored how many points this turn? If you accidentally went to this prompt, press x to go back."
 	inc = raw_input("Your answer: ")
 	if inc == 'x':
-		print "Recieved 'x'. Sending you back to the previous screen."
-	
+		print "Recieved 'x'. Sending you back to the previous screen.\n"
+		MainScreen(PlayerList, i)
+	elif int(inc) > 0:
+		PlayerList[i].UpdateScore(inc)
+		return
+	else:
+		print "Error, incorrect increment value."
 	return
 
 # Calling Functions
@@ -97,7 +108,7 @@ def UpdateScreen(PlayerList, i):
 NumberPlayers = Welcome()
 PlayerList = Setup_Players(NumberPlayers)
 
-print "Now making objects."
+print "CHECK: Now making objects."
 j = 0
 while j < len(PlayerList):
 	print PlayerList[j]
@@ -106,14 +117,29 @@ while j < len(PlayerList):
 	j = j + 1
 
 #This can be hardcoded in; may be different for base vs underground?
-print "Alright! Now we just need to know how many rounds will be played."
-round_response = int(raw_input("Number of rounds? "))
-print "Cool!", round_response, "rounds will be played."
+# 2 or 3 players = 10 rounds in both
+# 4 players = 9 rounds in both
+# 5 players = 8 rounds in both
+
+print "\n * * * * * * * * * *\n"
+print "Now we'll set up the amount of rounds!"
+print "\n * * * * * * * * * *\n"
+#print "Alright! Now we just need to know how many rounds will be played."
+#rounds = int(raw_input("Number of rounds? "))
+#print "Cool!", rounds, "rounds will be played.\n"
+
+print "Let's begin the game.\n"
 
 #provide space for players to enter in score information
 #per player per round
-while round_response != 0:
+while rounds != 0:
 	#Call update score
+	# variable for keeping track of the current player
 	i = 0
-	MainScreen(PlayerList, i)
+	print "It's now round", rounds,"\n"
+	#Mainscreen will go to dec & inc for each player
+	while i < len(PlayerList):
+		MainScreen(PlayerList, i)
+		i = i + 1
+	rounds = rounds - 1
 
