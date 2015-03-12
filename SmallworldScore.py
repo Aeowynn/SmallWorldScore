@@ -74,16 +74,31 @@ def RoundSetter(length):
 def MainScreen(PlayerList, i):
 	print PlayerList[i], "it is your turn."
 	print "If", PlayerList[i], "spent gold this turn, please press 1."
-	print "If", PlayerList[i], "is ready to score their turn, please press 2."
+	print "If", PlayerList[i], "stole gold this turn, please press 2."
+	print "If", PlayerList[i], "is ready to score their turn, please press 3."
 	response = int(raw_input("Your answer: "))
 	if response == 1:
 		SpentScreen(PlayerList, i)
 	elif response == 2:
+		StolenScreen(PlayerList, i)
+	elif response == 3:
 		UpdateScreen(PlayerList, i)
 	else:
 		print "Error; invalid answer."
 		return
-		
+
+def StolenScreen(PlayerList, i):
+	print "\n", PlayerList[i], "stole from how many players?"
+	num = raw_input("Your answer: ")
+	while num > 0:
+		print "Which player did", PlayerList[i], "steal from?"
+		player = raw_input("Your answer: ")
+		#find that player
+		print "How much did", PlayerList[i], "steal?"
+		amt = raw_input("Your answer: ")
+		#update player score
+		#update active player's score
+	
 def SpentScreen(PlayerList, i):
 	print "\n", PlayerList[i], "spent how much this turn? If you accidentally went to this prompt, press x to go back."
 	dec = raw_input("Your answer: ")
@@ -132,7 +147,13 @@ rounds = RoundSetter(len(PlayerList))
 #rounds = int(raw_input("Number of rounds? "))
 print "Cool!", rounds, "rounds will be played.\n"
 
-print "Let's begin the game.\n"
+print "Before we start, here's some important information:"
+print "Please enter in the changes in points in the order provided."
+print "You will not be able to return to the spent or stolen screens after submitting the round score."
+print "The stolen screen is only necessary for abilities in Underground and Be Not Afraid."
+print "If you aren't playing with either of those, you can ignore the stolen option."
+
+print "Alright, let's begin the game.\n"
 
 #provide space for players to enter in score information
 #per player per round
