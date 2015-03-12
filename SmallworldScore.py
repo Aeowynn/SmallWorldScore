@@ -63,6 +63,14 @@ def Setup_Players(num):
 	print "\n * * * * * * * * * *\n"
 	return PList
 
+def RoundSetter(length):
+	if length == 2 or length == 3:
+		return 10
+	elif length == 4:
+		return 9
+	elif length == 5:
+		return 8
+
 def MainScreen(PlayerList, i):
 	print PlayerList[i], "it is your turn."
 	print "If", PlayerList[i], "spent gold this turn, please press 1."
@@ -116,17 +124,13 @@ while j < len(PlayerList):
 	Player(PlayerList[j])
 	j = j + 1
 
-#This can be hardcoded in; may be different for base vs underground?
-# 2 or 3 players = 10 rounds in both
-# 4 players = 9 rounds in both
-# 5 players = 8 rounds in both
-
 print "\n * * * * * * * * * *\n"
 print "Now we'll set up the amount of rounds!"
 print "\n * * * * * * * * * *\n"
+rounds = RoundSetter(len(PlayerList))
 #print "Alright! Now we just need to know how many rounds will be played."
 #rounds = int(raw_input("Number of rounds? "))
-#print "Cool!", rounds, "rounds will be played.\n"
+print "Cool!", rounds, "rounds will be played.\n"
 
 print "Let's begin the game.\n"
 
@@ -136,10 +140,12 @@ while rounds != 0:
 	#Call update score
 	# variable for keeping track of the current player
 	i = 0
-	print "It's now round", rounds,"\n"
+	current = 1
+	print "It's now round", current,"\n"
 	#Mainscreen will go to dec & inc for each player
 	while i < len(PlayerList):
 		MainScreen(PlayerList, i)
 		i = i + 1
 	rounds = rounds - 1
+	current = current + 1
 
