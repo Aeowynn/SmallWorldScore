@@ -2,6 +2,8 @@
 
 Kara James
 
+
+
 This is a small python program that enables the user to keep track of all players' scores while playing the board game SmallWorld or SmallWorld Underground.
 
 ##Run the program with $python SmallworldScore.py
