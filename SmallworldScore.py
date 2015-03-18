@@ -3,19 +3,23 @@
 # Began Spring 2014, continued implementing Spring 2015
 
 NumberPlayers = 0
-PlayerList = []
+### Old; trying to redeploy to work with a dictionary instead
+#PlayerList = []
 
+PlayerList = {}
+
+### Old; trying to redeploy to work with a dictionary instead 
 # Player class for keeping track of a player's score
-class Player:
-	PlayerName = "Unknown"
-	score = 0
-
-	def __init__(self, name):
-		self.PlayerName = name
-
-	def UpdateScore(self, gain):
-		print "Updating score for", self.PlayerName, " "
-		self.score = self.score + int(gain)
+#class Player:
+#	PlayerName = "Unknown"
+#	score = 0
+#
+#	def __init__(self, name):
+#		self.PlayerName = name
+#
+#	def UpdateScore(self, gain):
+#		print "Updating score for", self.PlayerName, " "
+#		self.score = self.score + int(gain)
 
 # Function Definitions
 # Welcome/Startup function
@@ -49,13 +53,14 @@ def Setup_Players(num):
 	print "Now we'll set up the player list!"
 	print "\n * * * * * * * * * *\n"
 	temp = 1
-	PList = []
+#	PList = []
 	while num >= 1:
 		print "Now requesting information for player", temp
 		player_response = raw_input("Name for player? ")
 		print "Recieved", player_response, "\n"
-		#player = Player(player_response)
-		PList.append(player_response)
+		##player = Player(player_response)
+		#PList.append(player_response)
+		PlayerList[player_response] = 0
 		temp = temp + 1
 		num = num - 1
 	print "\n * * * * * * * * * *\n"
