@@ -31,8 +31,9 @@ while rounds != 0:
 	current = 1
 	print "It's now round", current,"\n"
 	#Mainscreen will go to dec & inc for each player
-	while i < len(PlayerList):
-		MainScreen(PlayerList, i)
+	while i < len(Player_List):
+		current_player_name = Player_List[i].player_name
+		functions.MainScreen(Player_List, i, current_player_name)
 		i = i + 1
 	rounds = rounds - 1
 	current = current + 1

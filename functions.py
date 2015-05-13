@@ -56,40 +56,40 @@ def Round_Setter(length):
 		print "Cool! 8 rounds will be played.\n"
 		return 8
 
-def MainScreen(PlayerList, i):
-	print PlayerList[i], "it is your turn."
-	print "If", PlayerList[i], "spent gold this turn, please press 1."
-	print "If", PlayerList[i], "stole gold this turn, please press 2."
-	print "If", PlayerList[i], "is ready to score their turn, please press 3."
+def MainScreen(PlayerList, i, current_player_name):
+	print current_player_name, "it is your turn."
+	print "If", current_player_name, "spent gold this turn, please press 1."
+	print "If", current_player_name, "stole gold this turn, please press 2."
+	print "If", current_player_name, "is ready to score their turn, please press 3."
 	response = int(raw_input("Your answer: "))
 	if response == 1:
-		SpentScreen(PlayerList, i)
+		SpentScreen(PlayerList, i, current_player_name)
 	elif response == 2:
-		StolenScreen(PlayerList, i)
+		StolenScreen(PlayerList, i, current_player_name)
 	elif response == 3:
-		UpdateScreen(PlayerList, i)
+		UpdateScreen(PlayerList, i, current_player_name)
 	else:
 		print "Error; invalid answer."
 		return
 
-def StolenScreen(PlayerList, i):
-	print "\n", PlayerList[i], "stole from how many players?"
+def StolenScreen(PlayerList, i, current_player_name):
+	print "\n", current_player_name, "stole from how many players?"
 	num = raw_input("Your answer: ")
 	while num > 0:
-		print "Which player did", PlayerList[i], "steal from?"
+		print "Which player did", current_player_name, "steal from?"
 		player = raw_input("Your answer: ")
 		#find that player
-		print "How much did", PlayerList[i], "steal?"
+		print "How much did", current_player_name, "steal?"
 		amt = raw_input("Your answer: ")
 		#update player score
 		#update active player's score
 	
-def SpentScreen(PlayerList, i):
-	print "\n", PlayerList[i], "spent how much this turn? If you accidentally went to this prompt, press x to go back."
+def SpentScreen(PlayerList, i, current_player_name):
+	print "\n", current_player_name, "spent how much this turn? If you accidentally went to this prompt, press x to go back."
 	dec = raw_input("Your answer: ")
 	if dec == 'x':
 		print "Recieved 'x'. Sending you back to previous screen.\n"
-		MainScreen(PlayerList, i)
+		MainScreen(PlayerList, i, current_player_name)
 	elif int(dec) > 0:
 		dec = 0 - int(dec)
 		PlayerList[i].UpdateScore(dec)
@@ -98,12 +98,12 @@ def SpentScreen(PlayerList, i):
 		print "Error, incorrect decrement value."
 		return
 
-def UpdateScreen(PlayerList, i):
-	print "\n", PlayerList[i], "scored how many points this turn? If you accidentally went to this prompt, press x to go back."
+def UpdateScreen(PlayerList, i, current_player_name):
+	print "\n", current_player_name, "scored how many points this turn? If you accidentally went to this prompt, press x to go back."
 	inc = raw_input("Your answer: ")
 	if inc == 'x':
 		print "Recieved 'x'. Sending you back to the previous screen.\n"
-		MainScreen(PlayerList, i)
+		MainScreen(PlayerList, i, current_player_name)
 	elif int(inc) > 0:
 		PlayerList[i].UpdateScore(inc)
 		return
