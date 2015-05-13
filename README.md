@@ -20,3 +20,5 @@ This is a small python program that enables the user to keep track of all player
 ###Future Plans:
 - Adding compatibility for all expansions
 - Possibly adding a GUI
+
+Questions? Feel free to contact me!
